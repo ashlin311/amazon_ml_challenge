@@ -1,0 +1,26 @@
+# ----- Data (too large for GitHub) -----
+data/
+
+# ----- Model checkpoints -----
+models/deberta/*.bin
+models/deberta/*.safetensors
+models/deberta/*.pt
+
+# ----- Outputs -----
+outputs/*.tsv
+outputs/*.csv
+outputs/*.log
+
+# ----- Python -----
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+
+# ----- Jupyter -----
+.ipynb_checkpoints/
+
+# ----- OS -----
+.DS_Store
+Thumbs.db

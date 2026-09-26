@@ -1,0 +1,2 @@
+# This directory stores fine-tuned DeBERTa model checkpoints.
+# Do not commit large model files to git — use .gitignore or git-lfs.

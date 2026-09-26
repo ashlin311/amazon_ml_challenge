@@ -1,0 +1,22 @@
+# Amazon ML Challenge 2026 — Business Entity Resolution
+# Requirements (Member 3 scope — matching, calibration, post-processing)
+#
+# NOTE: Do not install yet. This file documents expected dependencies.
+#       Pin exact versions before training begins.
+
+# Core
+# torch
+# transformers
+# datasets
+
+# Data
+# pandas
+# numpy
+
+# Evaluation / Utilities
+# scikit-learn
+# tqdm
+
+# Notebook
+# jupyter
+# matplotlib
