@@ -16,3 +16,6 @@ tqdm
 # Notebook
 jupyter
 matplotlib
+
+# Vector Database
+faiss-gpu
