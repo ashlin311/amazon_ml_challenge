@@ -14,7 +14,7 @@ CLI usage::
     python -m src.member3.predict \\
         --model-dir models/deberta \\
         --candidate-file output/candidate_pairs.tsv \\
-        --train-dir data/train \\
+        --train-dir student_resource/dataset/train \\
         --output-file output/pair_predictions.tsv
 """
 
@@ -84,7 +84,7 @@ def main(argv=None):
     parser.add_argument("--model-dir", default="models/deberta",
                         help="Directory with fine-tuned model checkpoint.")
     parser.add_argument("--candidate-file", default="output/candidate_pairs.tsv")
-    parser.add_argument("--train-dir", default="data/train",
+    parser.add_argument("--train-dir", default="student_resource/dataset/train",
                         help="Source data directory (for entity text lookup).")
     parser.add_argument("--output-file", default="output/pair_predictions.tsv")
     parser.add_argument("--batch-size", type=int, default=64)

@@ -1,5 +1,7 @@
 """
-High-Recall Hybrid Blocking & Candidate Retrieval Engine for Business Entity Resolution.
+src.member2 — High-Recall Hybrid Blocking & Candidate Retrieval Engine (Member 2).
+
+Public API re-exported for convenience:
 """
 
 from .blocking_engine import (
@@ -9,6 +11,8 @@ from .blocking_engine import (
     HybridBlocker,
     merge_candidates,
     evaluate_blocking_recall,
+    export_candidates,
+    run_submission_validation,
 )
 
 __all__ = [
@@ -18,4 +22,6 @@ __all__ = [
     "HybridBlocker",
     "merge_candidates",
     "evaluate_blocking_recall",
+    "export_candidates",
+    "run_submission_validation",
 ]

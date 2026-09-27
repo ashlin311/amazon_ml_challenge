@@ -12,7 +12,7 @@ CLI usage::
 
     python -m src.member3.candidate_eval \\
         --candidate-file output/candidate_pairs.tsv \\
-        --train-dir data/train
+        --train-dir student_resource/dataset/train
 """
 
 import argparse
@@ -403,7 +403,7 @@ def main(argv=None):
     )
     parser.add_argument(
         "--train-dir",
-        default="data/train",
+        default="student_resource/dataset/train",
         help="Directory containing train_ground_truth.tsv.",
     )
 

@@ -43,108 +43,15 @@ logger = logging.getLogger("BlockingEngine")
 
 
 # ============================================================================
-# MODULE A: DATA NORMALIZER & CLEANER
+# MODULE A: DATA NORMALIZER & CLEANER (MEMBER 1 INTEGRATION)
 # ============================================================================
 
-# Common business and address abbreviations
-_ABBREVIATIONS = {
-    # Business suffixes & legal forms
-    "corporation": "corp", "corporatn": "corp", "corpn": "corp",
-    "incorporated": "inc", "incorp": "inc",
-    "limited liability company": "llc", "limited liability partnership": "llp",
-    "limited": "ltd", "private": "pvt", "company": "co", "companie": "co",
-    "public limited company": "plc",
-    "societe a responsabilite limitee": "sarl", "societe anonyme": "sa",
-    "professional corporation": "pc", "enterprises": "ent", "enterprise": "ent",
-    "services": "serv", "service": "serv", "international": "intl",
-    "technologies": "tech", "technology": "tech", "manufacturing": "mfg",
-    "manufacture": "mfg", "management": "mgmt", "solutions": "sol", "solution": "sol",
-    "healthcare": "health", "health care": "health", "laboratories": "lab",
-    "laboratory": "lab", "labs": "lab",
-    # Address components
-    "street": "st", "str": "st", "avenue": "ave",
-    "boulevard": "blvd", "boul": "blvd", "blv": "blvd", "road": "rd",
-    "drive": "dr", "lane": "ln", "suite": "ste", "apartment": "apt",
-    "building": "bldg", "floor": "fl", "flr": "fl", "unit": "unit",
-    "unt": "unit", "court": "ct", "crt": "ct", "place": "pl",
-    "circle": "cir", "parkway": "pkwy", "highway": "hwy", "route": "rte",
-    "terrace": "ter", "crossing": "xing", "cross": "xing",
-    "expressway": "expy", "expwy": "expy", "near": "nr", "opposite": "opp",
-    "house no": "hno", "plot no": "plot", "flat no": "flat",
-    "boulevard du": "blvd", "bd du": "blvd", "bd": "blvd", "rue": "rue",
-}
+try:
+    from src.member1.data_cleaning import clean_address, clean_name, normalize_text
+except ImportError:
+    from ..member1.data_cleaning import clean_address, clean_name, normalize_text
 
-# Compile single combined regex matching full words, sorted by length descending
-_ABBREV_REGEX = re.compile(
-    r"\b(" + "|".join(re.escape(k) for k in sorted(_ABBREVIATIONS.keys(), key=len, reverse=True)) + r")\b",
-    flags=re.IGNORECASE,
-)
-
-# Preserve letters, digits, whitespace, combining marks, and Indic scripts
-_PUNCT_REGEX = re.compile(r"[^\w\s\u0900-\u0D7F\u0300-\u036F]", flags=re.UNICODE)
-_WHITESPACE_REGEX = re.compile(r"\s+")
 _DIGITS_REGEX = re.compile(r"\d+")
-_URL_REGEX = re.compile(r"(https?://\S+|www\.\S+)", flags=re.IGNORECASE)
-
-
-def clean_name(name_str: Optional[str]) -> str:
-    """
-    Clean business name by normalizing case, unicode, punctuation,
-    and business entity suffixes while preserving alphanumeric tokens.
-    """
-    if not name_str or pd.isna(name_str):
-        return ""
-
-    text = str(name_str)
-    text = unicodedata.normalize("NFKC", text).lower()
-    text = _URL_REGEX.sub(" ", text)
-    text = _ABBREV_REGEX.sub(lambda m: _ABBREVIATIONS[m.group(0).lower()], text)
-    text = _PUNCT_REGEX.sub(" ", text)
-    return _WHITESPACE_REGEX.sub(" ", text).strip()
-
-
-def clean_address(address_str: Optional[str]) -> str:
-    """
-    Clean business address by normalizing abbreviations (street, road, suite, etc.),
-    removing noise punctuation while retaining exact digits and street numbers.
-    """
-    if not address_str or pd.isna(address_str):
-        return ""
-
-    text = str(address_str)
-    text = unicodedata.normalize("NFKC", text).lower()
-    text = _ABBREV_REGEX.sub(lambda m: _ABBREVIATIONS[m.group(0).lower()], text)
-    text = _PUNCT_REGEX.sub(" ", text)
-    return _WHITESPACE_REGEX.sub(" ", text).strip()
-
-
-def normalize_text(name_str: Optional[str], address_str: Optional[str]) -> str:
-    """
-    Normalize combined business name and address for entity blocking.
-
-    Features:
-    - Lowercase and normalize Unicode characters.
-    - Strip noise punctuation while preserving exact alphanumeric tokens (names, street numbers, PIN codes).
-    - Standardize common business and address abbreviations.
-    - Return clean, single-spaced matching representation.
-
-    Args:
-        name_str: Raw business name.
-        address_str: Raw business address.
-
-    Returns:
-        Cleaned, normalized combined string.
-    """
-    c_name = clean_name(name_str)
-    c_addr = clean_address(address_str)
-
-    if c_name and c_addr:
-        return f"{c_name} {c_addr}"
-    elif c_name:
-        return c_name
-    elif c_addr:
-        return c_addr
-    return ""
 
 
 def extract_numeric_tokens(address_str: Optional[str]) -> List[str]:

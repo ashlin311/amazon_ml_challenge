@@ -4,7 +4,7 @@ run_baseline.py — CLI to evaluate cheap baselines on a validation split.
 Usage::
 
     python -m src.member3.run_baseline \\
-        --train-dir data/train \\
+        --train-dir student_resource/dataset/train \\
         --validation-fraction 0.01 \\
         --seed 42 \\
         --strategy exact_name
@@ -52,7 +52,7 @@ def main(argv=None):
     )
     parser.add_argument(
         "--train-dir",
-        default="data/train",
+        default="student_resource/dataset/train",
         help="Directory with train_source{1,2,3}.tsv and train_ground_truth.tsv.",
     )
     parser.add_argument(

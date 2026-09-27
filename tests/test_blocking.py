@@ -30,7 +30,7 @@ from src.blocking_engine import (
     evaluate_blocking_recall,
     export_candidates,
 )
-from src.phonetics import double_metaphone
+from src.member2.phonetics import double_metaphone
 
 
 class TestTextNormalization(unittest.TestCase):

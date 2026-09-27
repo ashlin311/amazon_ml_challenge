@@ -1,5 +1,5 @@
 # ----- Data (too large for GitHub) -----
-data/
+student_resource/dataset/
 
 # ----- Model checkpoints -----
 models/deberta/*.bin
@@ -7,9 +7,9 @@ models/deberta/*.safetensors
 models/deberta/*.pt
 
 # ----- Outputs -----
-outputs/*.tsv
-outputs/*.csv
-outputs/*.log
+output/*.tsv
+output/*.csv
+output/*.log
 
 # ----- Python -----
 __pycache__/
@@ -20,6 +20,9 @@ __pycache__/
 
 # ----- Jupyter -----
 .ipynb_checkpoints/
+
+# ----- Virtual environments -----
+.venv/
 
 # ----- OS -----
 .DS_Store

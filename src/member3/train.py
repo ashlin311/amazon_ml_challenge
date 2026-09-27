@@ -4,7 +4,7 @@ train.py — Training loop for the DeBERTa cross-encoder matching model.
 CLI usage::
 
     python -m src.member3.train \\
-        --train-dir data/train \\
+        --train-dir student_resource/dataset/train \\
         --candidate-file output/candidate_pairs.tsv \\
         --output-dir models/deberta \\
         --epochs 3 --batch-size 32 --max-length 256
@@ -180,7 +180,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Train DeBERTa cross-encoder on candidate pairs.",
     )
-    parser.add_argument("--train-dir", default="data/train")
+    parser.add_argument("--train-dir", default="student_resource/dataset/train")
     parser.add_argument("--candidate-file", default="output/candidate_pairs.tsv")
     parser.add_argument("--output-dir", default="models/deberta")
     parser.add_argument("--model-name", default=DEFAULT_MODEL_NAME)
